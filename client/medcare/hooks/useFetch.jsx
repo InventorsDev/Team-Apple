@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import axiosConfig from "../config/axios";
-import axiosConfig from "../config/axios";
-
 
 export default useFetch = (endpoint, query) => {
   const [data, setData] = useState([]);

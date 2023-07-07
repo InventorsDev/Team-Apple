@@ -1,20 +1,21 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../screens/home/Home";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AuthRouter from "./AuthRouter";
+import ProtectedRouter from "./ProtectedRouter";
 
 const AppRouter = () => {
-  const Stack = createStackNavigator();
+  const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: "Welcome" }}
+        name="Protected"
+        component={ProtectedRouter}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: "Welcome" }}
+        name="Auth"
+        component={AuthRouter}
+        options={{ title: "" }}
       />
     </Stack.Navigator>
   );

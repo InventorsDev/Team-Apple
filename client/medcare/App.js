@@ -6,20 +6,28 @@ import { PaperProvider } from "react-native-paper";
 import AuthContextProvider from "./contexts/AuthContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { AppRegistry } from "react-native";
+import { registerRootComponent } from "expo";
 
 SplashScreen.preventAutoHideAsync();
 
+if (Platform.OS == "android") {
+  registerRootComponent(App);
+} else {
+  AppRegistry.registerComponent(expo.name, () => App);
+}
+
 export default function App() {
   const [fontsLoaded] = useFonts({
-    NunitoBlack: require("../assets/fonts/Nunito-Black.ttf"),
-    NunitoBold: require("../assets/fonts/Nunito-Bold.ttf"),
-    NunitoExtraBold: require("../assets/fonts/Nunito-ExtraBold.ttf"),
-    NunitoExtraLight: require("../assets/fonts/Nunito-ExtraLight.ttf"),
-    NunitoLight: require("../assets/fonts/Nunito-Light.ttf"),
-    NunitoMedium: require("../assets/fonts/Nunito-Medium.ttf"),
-    NunitoRegular: require("../assets/fonts/Nunito-Regular.ttf"),
-    NunitoSemiBold: require("../assets/fonts/Nunito-SemiBold.ttf"),
+    NunitoBlack: require("./assets/fonts/Nunito-Black.ttf"),
+    NunitoBold: require("./assets/fonts/Nunito-Bold.ttf"),
+    NunitoExtraBold: require("./assets/fonts/Nunito-ExtraBold.ttf"),
+    NunitoExtraLight: require("./assets/fonts/Nunito-ExtraLight.ttf"),
+    NunitoLight: require("./assets/fonts/Nunito-Light.ttf"),
+    NunitoMedium: require("./assets/fonts/Nunito-Medium.ttf"),
+    NunitoRegular: require("./assets/fonts/Nunito-Regular.ttf"),
+    NunitoSemiBold: require("./assets/fonts/Nunito-SemiBold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -33,7 +41,7 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer onLayout={onLayoutRootView}>
+    <NavigationContainer onReady={onLayoutRootView}>
       <AuthContextProvider>
         <StatusBar style="auto" />
         <PaperProvider>
@@ -43,35 +51,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import React from "react";
-// import { View, Text } from "react-native";
-// import { useEffect, useState } from "react";
-// import { Stack, useRouter } from "expo-router";
-
-// const Index = () => {
-//   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     AsyncStorage.getItem("alreadyLaunched").then((value) => {
-//       if (value === null) {
-//         AsyncStorage.setItem("alreadyLaunched", "true");
-//         router.push("/onboarding");
-//         setIsFirstLaunch(true);
-//       } else {
-//         router.push("/onboarding");
-
-//         setIsFirstLaunch(false);
-//       }
-//     });
-//   }, []);
-//   return (
-//     <View>
-//       <Text>Index</Text>
-//     </View>
-//   );
-// };
-
-// export default Index;
