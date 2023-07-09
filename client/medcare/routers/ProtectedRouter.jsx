@@ -3,8 +3,10 @@ import React from "react";
 import Home from "../screens/home/Home";
 import Explore from "../screens/explore/Explore";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 
 const ProtectedRouter = () => {
+  const theme = useTheme();
   const BottomTab = createBottomTabNavigator();
   return (
     <BottomTab.Navigator
@@ -21,10 +23,14 @@ const ProtectedRouter = () => {
         initialRouteName: "Home",
         tabBarStyle: {
           paddingVertical: 10,
-          backgroundColor: "#F5F6F7",
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          // backgroundColor: "#F5F6F7",
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          height: 60,
+          paddingBottom: 10,
+          paddingTop: 10,
         },
+        tabBarActiveTintColor: theme.dark ? theme.colors.white : theme.colors.primary,
       })}
     >
       <BottomTab.Screen
@@ -34,11 +40,7 @@ const ProtectedRouter = () => {
           title: "Home",
         }}
       />
-      <BottomTab.Screen
-        name="Explore"
-        component={Explore}
-        options={{ title: "Explore" }}
-      />
+      <BottomTab.Screen name="Explore" component={Explore} options={{ title: "Explore" }} />
     </BottomTab.Navigator>
   );
 };

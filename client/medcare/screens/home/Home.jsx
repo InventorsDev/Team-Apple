@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native-paper";
+import { View } from "react-native";
 
-const Home = ({ navigation }) => {
+const Home = () => {
   return (
     <View>
       <Text>Home</Text>

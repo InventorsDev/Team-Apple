@@ -3,11 +3,12 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import AppRouter from "./routers/AppRouter";
 import { PaperProvider } from "react-native-paper";
+import { customDarkTheme, customDefaultTheme } from "./utils/theme";
 import AuthContextProvider from "./contexts/AuthContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
-import { AppRegistry } from "react-native";
+import { AppRegistry, useColorScheme } from "react-native";
 import { registerRootComponent } from "expo";
 
 SplashScreen.preventAutoHideAsync();
@@ -30,6 +31,10 @@ export default function App() {
     NunitoSemiBold: require("./assets/fonts/Nunito-SemiBold.ttf"),
   });
 
+  const currentTheme = useColorScheme(); // "light" or "dark"
+
+  const theme = currentTheme === "dark" ? customDarkTheme : customDefaultTheme;
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -41,13 +46,13 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer onReady={onLayoutRootView}>
+    <PaperProvider theme={theme}>
       <AuthContextProvider>
-        <StatusBar style="auto" />
-        <PaperProvider>
+        <NavigationContainer onReady={onLayoutRootView} theme={theme}>
+          <StatusBar style="auto" />
           <AppRouter />
-        </PaperProvider>
+        </NavigationContainer>
       </AuthContextProvider>
-    </NavigationContainer>
+    </PaperProvider>
   );
 }
